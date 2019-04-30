@@ -4,13 +4,13 @@ defmodule ConfigNodeTest do
 
   describe "read/2" do
     test 'read simple value' do
-      {:ok, root_node , new_node } = ConfigNode.write(%ConfigNode{name: 'root'}, "a", 1)
+      {:ok, root_node , _ } = ConfigNode.write(%ConfigNode{name: 'root'}, "a", 1)
       value = ConfigNode.read(root_node, "a")
       assert value == 1
     end
 
     test 'read nested value' do
-      {:ok, root_node , new_node } = ConfigNode.write(%ConfigNode{name: 'root'}, "a.b", 1)
+      {:ok, root_node ,  _ } = ConfigNode.write(%ConfigNode{name: 'root'}, "a.b", 1)
       value = ConfigNode.read(root_node, "a")
       assert value == nil 
       value = ConfigNode.read(root_node, "a.b")
@@ -18,8 +18,8 @@ defmodule ConfigNodeTest do
     end
 
     test 'read fanned out values' do
-      {:ok, root_node , new_node } = ConfigNode.write(%ConfigNode{name: 'root'}, "a", 1)
-      {:ok, root_node , new_node } = ConfigNode.write(root_node, "b", 2)
+      {:ok, root_node , _ } = ConfigNode.write(%ConfigNode{name: 'root'}, "a", 1)
+      {:ok, root_node , _ } = ConfigNode.write(root_node, "b", 2)
       value = ConfigNode.read(root_node, "a")
       assert value == 1
       value = ConfigNode.read(root_node, "b")
@@ -27,9 +27,9 @@ defmodule ConfigNodeTest do
     end
 
     test 'read fanned out and nested values' do
-      {:ok, root_node , new_node } = ConfigNode.write(%ConfigNode{name: 'root'}, "a", 1)
-      {:ok, root_node , new_node } = ConfigNode.write(root_node, "b", 2)
-      {:ok, root_node , new_node } = ConfigNode.write(root_node, "b.c", 3)
+      {:ok, root_node , _ } = ConfigNode.write(%ConfigNode{name: 'root'}, "a", 1)
+      {:ok, root_node , _ } = ConfigNode.write(root_node, "b", 2)
+      {:ok, root_node , _ } = ConfigNode.write(root_node, "b.c", 3)
       value = ConfigNode.read(root_node, "a")
       assert value == 1
       value = ConfigNode.read(root_node, "b")
